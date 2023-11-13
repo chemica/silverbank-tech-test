@@ -1,0 +1,62 @@
+# README
+
+## Project
+
+Silvercat code exercise: Catbank
+
+A very basic bank application for storing and transferring Silveuros,
+or SLV
+
+## Language versions
+
+Ruby version: 3.2.2
+Node version: 20.8.0
+
+## Dependencies
+
+Linux or OSX - This project may require some modification on Windows, 
+and is not tested on OSX
+
+just - a Make replacement for common command-line tasks. 
+
+docker - container virtualisation for Rails and associated technologies
+
+If you wish to run Rails locally, you will need Ruby and Node installed,
+using the versions above. A Ruby version manager succh as ```nvm``` is
+recommended.
+
+## Database
+
+A postgres database is provided as part of the docker-compose cloud. If 
+you want to access Postgres from Rails running on the host machine, you
+can update your /etc/hosts file to add db as an alias for 127.0.0.1:
+
+```sudo sh -c "echo '127.0.0.1  db' >> /etc/hosts"```
+
+## Dockerfiles
+
+"Dockerfile" is used for development, while "Dockerfile.Production" is 
+used for deployment to production. If you need to make any updates to
+the development Dockerfile, please also update Dockerfile.Production.
+
+## Ruby and Node versions
+
+Rails in run in a container in order to match the production 
+environment. If you need to update the Ruby or Node versions, please
+update in both Dockerfiles, as well as the .ruby-version and 
+.node-version files, then rebuild your containers and run your tests.
+
+## Project setup
+
+Initialise the project with:
+
+```just setup``
+
+Start the project with:
+
+```just start``` (or ```just up``` if you want to see logs)
+
+Point your browser at:
+
+```http://localhost:3000```
+
