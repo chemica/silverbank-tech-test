@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'users/show', type: :view do
-  before(:each) do
-    assign(:user, User.create!(
-                    display_name: 'Display Name',
-                    email: 'steve@example.com'
-                  ))
+  let(:user) do
+    User.create!(
+      display_name: 'Display Name',
+      email: 'steve@example.com'
+    )
   end
 
   it 'renders attributes in <p>' do
-    render
+    render template: 'users/show', layout: nil, locals: { current_user: user }
     expect(rendered).to match(/Display Name/)
     expect(rendered).to match(/Email/)
   end

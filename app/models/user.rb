@@ -12,4 +12,6 @@ class User < ApplicationRecord
                            uniqueness: true,
                            format: { with: URI::MailTo::EMAIL_REGEXP },
                            length: { minimum: 3, maximum: 254 }
+
+  passwordless_with :email
 end
