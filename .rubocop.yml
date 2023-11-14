@@ -10,12 +10,14 @@ Metrics/MethodLength:
   Exclude:
     - 'db/migrate/**/*'
     - 'config/**/*'
+    - 'config/**/*'
 
 Metrics/BlockLength:
   Max: 10
   Exclude:
     - 'db/migrate/**/*'
     - 'config/**/*'
+    - 'spec/**/*'
 
 Metrics/AbcSize:
   Exclude:

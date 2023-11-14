@@ -78,11 +78,11 @@ console:
 
 # Run tests
 test:
-  @docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web rspec
+  @docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web bundle exec rspec
 
 # Run tests
 rspec:
-  @docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web rspec
+  @docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web bundle exec rspec
 
 # Run a shell in the web container
 shell:
