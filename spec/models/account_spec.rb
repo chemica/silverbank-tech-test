@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Account, type: :model do
   let(:user) do
-    User.create(display_name: 'test', email: 'sharon@example.com')
+    User.create!(display_name: 'test', email: 'sharon@example.com', account_name: 'new-account')
   end
 
   describe 'associations' do

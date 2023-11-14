@@ -19,4 +19,11 @@ RSpec.describe User, type: :model do
   it { should_not allow_value('email@.com').for(:email) }
   it { should_not allow_value('email').for(:email) }
   it { should validate_length_of(:email).is_at_least(3).is_at_most(254) }
+
+  describe 'signup' do
+    it 'creates an account for the user' do
+      user = User.create(display_name: 'test', email: 'test@example.com', account_name: "new-account")
+      expect(user.account).to be_present
+    end
+  end
 end

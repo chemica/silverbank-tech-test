@@ -4,7 +4,8 @@ RSpec.describe 'users/show', type: :view do
   let(:user) do
     User.create!(
       display_name: 'Display Name',
-      email: 'steve@example.com'
+      email: 'steve@example.com',
+      account_name: 'new_account'
     )
   end
 

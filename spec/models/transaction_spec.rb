@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Transaction, type: :model do
   describe 'validations' do
     let(:user) do
-      User.create(display_name: 'test', email: 'henry@example.com')
+      User.create(display_name: 'test', email: 'henry@example.com', account_name: 'new-account')
     end
 
     let(:account) do

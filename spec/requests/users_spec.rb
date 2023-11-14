@@ -19,11 +19,17 @@ RSpec.describe '/users', type: :request do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { id: '123e4567-e89b-12d3-a456-426614174000', display_name: 'Display name', email: 'someone@example.com' }
+    { id: '123e4567-e89b-12d3-a456-426614174000',
+      display_name: 'Display name',
+      email: 'someone@example.com',
+      account_name: 'new-account' }
   end
 
   let(:invalid_attributes) do
-    { id: 'invalid excample', display_name: '', email: 'not+an+email+address' }
+    { id: 'invalid excample',
+      display_name: '',
+      email: 'not+an+email+address',
+      account_name: 'new-account' }
   end
 
   describe 'GET /show' do
