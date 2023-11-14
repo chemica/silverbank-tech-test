@@ -1,35 +1,84 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catbank</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
-
   <body>
+    <!-- START FLASH -->
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-    <div>
-      <h2>Menu</h2>
-      <a href="<%= root_path %>">Home</a>
-      <a href="<%= user_profile_path %>">Profile</a>
-      <a href="<%= user_profile_path %>">Account</a>
-      <br/>
-      <h2>Account</h2>
-      <% if current_user %>
-        <p>Hello <%= current_user.display_name %></p>
-        <a href="<%= auth_sign_out_path %>">Sign out</a>
-      <% else %>
-        <p>Not signed in</p>
-        <a href="<%= auth_sign_in_path %>">Sign in</a>
-        <a href="<%= new_user_path %>">Sign up</a>
-      <% end %>
+    <!-- END FLASH -->
+
+    <!-- START NAV -->
+    <nav class="navbar is-white">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item brand-text" href="<%= root_path %>">
+            Catbank
+          </a>
+          <div class="navbar-burger burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="<%= user_profile_path %>">User profile</a>
+            <a class="navbar-item" href="<%= account_path %>">Account</a>
+            <% if current_user %>
+              <a class="navbar-item" href="<%= auth_sign_out_path %>">Sign out</a>
+            <% else %>
+              <a class="navbar-item"  href="<%= auth_sign_in_path %>">Sign in</a><a class="navbar-item"  href="<%= new_user_path %>">Sign up</a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- END NAV -->
+
+
+    <div class="container">
+      <div class="columns">
+        <div class="column is-3 ">
+          <aside class="menu is-hidden-mobile">
+            <p class="menu-label">
+              Your bank
+            </p>
+            <ul class="menu-list">
+              <li><a href="<%= user_profile_path %>">User Profile</a></li>
+              <li><a href="<%= account_path %>">Account</a></li>
+            </ul>
+
+            <p class="menu-label">
+              <%= current_user ? "Hello #{current_user.display_name}" : "Not signed in" %>
+            </p>
+
+            <ul class="menu-list">
+            <% if current_user %>
+                <li><a href="<%= auth_sign_out_path %>">Sign out</a></li>
+              <% else %>
+                <li><a href="<%= auth_sign_in_path %>">Sign in</a></li>
+                <li><a href="<%= new_user_path %>">Sign up</a></li>
+              <% end %>
+            </ul>
+          </aside>
+        </div>
+        <%= yield %>
+      </div>
     </div>
-    <%= yield %>
   </body>
 </html>

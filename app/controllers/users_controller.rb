@@ -4,15 +4,12 @@
 class UsersController < ApplicationController
   before_action :require_user!, only: %i[show]
 
-  # GET /users/1 or /users/1.json
   def show; end
 
-  # GET /users/new
   def new
     @user = User.new
   end
 
-  # POST /users or /users.json
   def create
     @user = User.new(user_params)
 
