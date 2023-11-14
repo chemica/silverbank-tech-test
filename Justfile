@@ -102,15 +102,15 @@ psql:
 
 # Run a rake task in the web container
 @rake *args='':
-  `echo "docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web rake $@"`
+  `echo "docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web bundle exec rake $@"`
 
 # Run a rails task in the web container
 @rails *args='':
-  `echo "docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web rails $@"`
+  `echo "docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web bin/rails $@"`
 
 # Run a yarn command in the web container
 @yarn *args='':
-  `echo "docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web yarn $@"`
+  `echo "docker-compose -f {{DOCKER_COMPOSE_FILE}} exec web bundle exec yarn $@"`
 
 
 

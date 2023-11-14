@@ -50,7 +50,7 @@ update in both Dockerfiles, as well as the .ruby-version and
 
 Initialise the project with:
 
-```just setup``
+```just setup```
 
 Start the project with:
 
@@ -60,3 +60,14 @@ Point your browser at:
 
 ```http://localhost:3000```
 
+## Just commands
+
+Type ```just``` to list the available commands. Most just commands will run in the relevant container. For example:
+
+```just psql``` - open a psql session on the db container
+```just shell``` - open a sh shell on the web container
+```just bundle``` - bundle gems on the web container
+
+Rails, rake and yarn commands are passed through to the container:
+
+```just rails g migration CreateUser email:string name:string```
