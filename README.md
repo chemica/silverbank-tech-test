@@ -59,6 +59,8 @@ Start the project with:
 
 ```just start``` (or ```just up``` if you want to see logs)
 
+```just yarn build``` and ```just yarn build:css``` will build the front end files
+
 Point your browser at:
 
 ```http://localhost:3000```
