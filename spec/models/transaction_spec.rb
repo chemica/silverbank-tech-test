@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
+  let(:user) do
+    User.create(display_name: 'test', email: 'henry@example.com', account_name: 'new-account')
+  end
+
+  let(:account) do
+    Account.create(balance: 100, friendly_name: 'test', user:)
+  end
+
   describe 'validations' do
-    let(:user) do
-      User.create(display_name: 'test', email: 'henry@example.com', account_name: 'new-account')
-    end
-
-    let(:account) do
-      Account.create(balance: 100, friendly_name: 'test', user:)
-    end
-
     describe 'associations' do
       it { should belong_to(:sender).class_name('Account') }
       it { should belong_to(:receiver).class_name('Account') }

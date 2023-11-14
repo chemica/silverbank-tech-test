@@ -48,6 +48,9 @@ update in both Dockerfiles, as well as the .ruby-version and
 
 ## Project setup
 
+Set up your ```.env``` file. Copy ```.env.example``` in the root directory to ```.env```.
+Update the SMTP variables in your ```.env``` file to match your SMTP mail server. 
+
 Initialise the project with:
 
 ```just setup```

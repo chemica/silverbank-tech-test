@@ -29,6 +29,8 @@ services:
       SMTP_ENDPOINT: ${SMTP_ENDPOINT}
       SMTP_PORT: ${SMTP_PORT}
       BUNDLE_PATH: /bundle/vendor
+      PROMO_RUNNING: ${PROMO_RUNNING}
+      PROMO_AMOUNT: ${PROMO_AMOUNT}
     volumes:
       - .:/rails
       - bundle_path:/bundle

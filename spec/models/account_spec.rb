@@ -19,4 +19,30 @@ RSpec.describe Account, type: :model do
     it { should validate_length_of(:friendly_name).is_at_least(3).is_at_most(60) }
     it { should validate_numericality_of(:balance).is_greater_than_or_equal_to(0) }
   end
+
+  describe 'promotion funds' do
+    let(:account) do
+      Account.create(balance: 100, friendly_name: 'test', user:)
+    end
+
+    context 'when the promotion is running' do
+      before do
+        ENV['PROMO_RUNNING'] = 'true'
+        ENV['PROMO_AMOUNT'] = '100'
+      end
+      it 'should apply the promotion funds on create' do
+        expect(account.balance).to eq 200
+      end
+    end
+
+    context 'when the promotion is not running' do
+      before do
+        ENV['PROMO_RUNNING'] = 'false'
+        ENV['PROMO_AMOUNT'] = '100'
+      end
+      it 'should not apply the promotion funds on create' do
+        expect(account.balance).to eq 100
+      end
+    end
+  end
 end

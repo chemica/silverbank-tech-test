@@ -15,4 +15,14 @@ class Account < ApplicationRecord
             length: { minimum: 3, maximum: 60 },
             format: valid_friendly_name_regex
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
+
+  after_create :add_promotion_funds
+
+  private
+
+  def add_promotion_funds
+    return unless ENV['PROMO_RUNNING'] == 'true' && ENV['PROMO_AMOUNT'].to_i.positive?
+
+    update(balance: balance + ENV['PROMO_AMOUNT'].to_i)
+  end
 end
