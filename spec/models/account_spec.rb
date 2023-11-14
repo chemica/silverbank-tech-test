@@ -21,17 +21,14 @@ RSpec.describe Account, type: :model do
   end
 
   describe 'promotion funds' do
-    let(:account) do
-      Account.create(balance: 100, friendly_name: 'test', user:)
-    end
-
     context 'when the promotion is running' do
       before do
         ENV['PROMO_RUNNING'] = 'true'
         ENV['PROMO_AMOUNT'] = '100'
       end
       it 'should apply the promotion funds on create' do
-        expect(account.balance).to eq 200
+        user.account.reload
+        expect(user.account.balance).to eq 100
       end
     end
 
@@ -41,7 +38,8 @@ RSpec.describe Account, type: :model do
         ENV['PROMO_AMOUNT'] = '100'
       end
       it 'should not apply the promotion funds on create' do
-        expect(account.balance).to eq 100
+        user.account.reload
+        expect(user.account.balance).to eq 0
       end
     end
   end

@@ -3,8 +3,9 @@
 # Account model
 class Account < ApplicationRecord
   @valid_friendly_name_regex = /\A[a-zA-Z0-9_-]+\z/
+  @valid_friendly_name_length = { minimum: 3, maximum: 60 }
   class << self
-    attr_reader :valid_friendly_name_regex
+    attr_reader :valid_friendly_name_regex, :valid_friendly_name_length
   end
 
   belongs_to :user
@@ -23,6 +24,6 @@ class Account < ApplicationRecord
   def add_promotion_funds
     return unless ENV['PROMO_RUNNING'] == 'true' && ENV['PROMO_AMOUNT'].to_i.positive?
 
-    update(balance: balance + ENV['PROMO_AMOUNT'].to_i)
+    update!(balance: balance + ENV['PROMO_AMOUNT'].to_i)
   end
 end

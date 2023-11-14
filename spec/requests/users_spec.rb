@@ -56,9 +56,59 @@ RSpec.describe '/users', type: :request do
         end.to change(User, :count).by(1)
       end
 
+      it 'creates a new Account' do
+        expect do
+          post users_url, params: { user: valid_attributes }
+        end.to change(Account, :count).by(1)
+      end
+
       it 'redirects to the sign in page' do
         post users_url, params: { user: valid_attributes }
         expect(response).to redirect_to(auth_sign_in_url)
+      end
+
+      context 'promotion funds' do
+        context 'when the promotion is running' do
+          around do |example|
+            promo_running = ENV.fetch('PROMO_RUNNING', nil)
+            promo_amount = ENV.fetch('PROMO_AMOUNT', nil)
+
+            ENV['PROMO_RUNNING'] = 'true'
+            ENV['PROMO_AMOUNT'] = '100'
+
+            example.run
+
+            ENV['PROMO_RUNNING'] = promo_running
+            ENV['PROMO_AMOUNT'] = promo_amount
+          end
+
+          it 'applies the promotion funds on create' do
+            post users_url, params: { user: valid_attributes }
+            account = Account.order(created_at: :desc).first
+            expect(account.balance).to eq 100
+          end
+        end
+
+        context 'when the promotion is not running' do
+          around do |example|
+            promo_running = ENV.fetch('PROMO_RUNNING', nil)
+            promo_amount = ENV.fetch('PROMO_AMOUNT', nil)
+
+            ENV['PROMO_RUNNING'] = 'false'
+            ENV['PROMO_AMOUNT'] = '100'
+
+            example.run
+
+            ENV['PROMO_RUNNING'] = promo_running
+            ENV['PROMO_AMOUNT'] = promo_amount
+          end
+
+          it 'should not apply the promotion funds on create' do
+            post users_url, params: { user: valid_attributes }
+            account = Account.order(created_at: :desc).first
+            expect(account.balance).to eq 0
+          end
+        end
       end
     end
 
