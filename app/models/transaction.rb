@@ -20,7 +20,7 @@ class Transaction < ApplicationRecord
   rescue InsufficientBalanceError
     update!(status: :failed)
     update!(error_message: 'Sender has insufficient funds')
-  rescue StandardError => e
+  rescue StandardError
     update! status: :failed
     update! error_message: 'Server error'
   end
@@ -41,9 +41,8 @@ class Transaction < ApplicationRecord
   end
 
   def lock_sender_and_receiver_accounts
-    s = Account.lock('FOR UPDATE NOWAIT').find_by(id: sender.id)
-    r = Account.lock('FOR UPDATE NOWAIT').find_by(id: receiver.id)
-    [s, r]
+    [Account.lock('FOR UPDATE NOWAIT').find_by(id: sender.id),
+     Account.lock('FOR UPDATE NOWAIT').find_by(id: receiver.id)]
   end
 
   def sender_balance_is_sufficient?(sender_balance)
