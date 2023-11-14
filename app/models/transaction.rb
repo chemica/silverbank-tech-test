@@ -10,6 +10,8 @@ class Transaction < ApplicationRecord
   validates :error_message, presence: true
   validate :sender_and_receiver_are_different
 
+  enum status: { pending: 0, completed: 1, failed: 2 }
+
   private
 
   def sender_and_receiver_are_different

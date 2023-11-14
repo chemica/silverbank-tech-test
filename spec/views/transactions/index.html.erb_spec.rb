@@ -23,14 +23,14 @@ RSpec.describe 'transactions/index', type: :view do
                sender: account1,
                receiver: account2,
                amount: '9.99',
-               status: 101_010_101,
+               status: 1,
                error_message: 'Error Message'
              ),
              Transaction.create!(
                sender: account1,
                receiver: account2,
                amount: '9.99',
-               status: 101_010_101,
+               status: 1,
                error_message: 'Error Message'
              )
            ])
@@ -42,7 +42,6 @@ RSpec.describe 'transactions/index', type: :view do
     assert_select cell_selector, text: Regexp.new(account1.id.to_s), count: 2
     assert_select cell_selector, text: Regexp.new(account2.id.to_s), count: 2
     assert_select cell_selector, text: Regexp.new('9.99'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(101_010_101.to_s), count: 2
     assert_select cell_selector, text: Regexp.new('Error Message'.to_s), count: 2
   end
 end

@@ -38,7 +38,7 @@ RSpec.describe '/transactions', type: :request do
       sender: account1,
       receiver: account2,
       amount: 100.0,
-      status: 0,
+      status: :pending,
       error_message: 'An error' }
   end
 
@@ -47,7 +47,7 @@ RSpec.describe '/transactions', type: :request do
       sender_id: account1.id,
       receiver_id: account2.id,
       amount: 100.0,
-      status: 0,
+      status: :completed,
       error_message: 'An error' }
   end
 
@@ -56,7 +56,7 @@ RSpec.describe '/transactions', type: :request do
       sender_id: 'another invalid',
       receiver_id: 'an invalid receiver',
       amount: -3,
-      status: -1,
+      status: :pending,
       error_message: nil }
   end
 
